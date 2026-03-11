@@ -1,6 +1,11 @@
 # CodeLeader for OpenClaw
 
-[中文版本](README.zh-CN.md)
+<table width="100%">
+  <tr>
+    <td align="left"><a href="README.zh-CN.md">中文版本</a></td>
+    <td align="right"><a href="README_AGENT.md">Agent Edition</a></td>
+  </tr>
+</table>
 
 <p align="center">
   <img src="assets/icon/openclaw-codeleader_icon_final_2048.jpg" alt="CodeLeader icon" width="220">
