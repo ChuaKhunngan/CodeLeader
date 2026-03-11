@@ -1,5 +1,7 @@
 # CodeLeader for OpenClaw
 
+[中文版本](README.zh-CN.md)
+
 <p align="center">
   <img src="assets/icon/openclaw-codeleader_icon_final_2048.jpg" alt="CodeLeader icon" width="220">
 </p>
@@ -88,6 +90,8 @@ For example:
 ```text
 Use CodeLeader to build a Pomodoro timer app with task tracking.
 ```
+
+OpenClaw should then collect any missing startup information and bring the stack up through the skill bundle.
 
 ### 3. Join the remote session when you want to collaborate live
 
