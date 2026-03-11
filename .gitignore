@@ -1,0 +1,19 @@
+# Sentinel-Zellij Proxy runtime
+runtime/
+__pycache__/
+*.pyc
+
+# OS / editor noise
+.DS_Store
+
+# Build artifacts
+**/target/
+
+# Local archives / packages
+*.zip
+
+# Local-only planning / publish-control files
+*.local.md
+
+# Internal / non-public working areas
+backups/

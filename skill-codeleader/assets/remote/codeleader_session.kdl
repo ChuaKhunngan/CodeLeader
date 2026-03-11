@@ -1,0 +1,17 @@
+// CodeLeader dedicated Zellij config (session-scoped)
+// Restricted mode: default locked, mouse disabled, only detach/quit exposed.
+// Theme placeholder: keep this config-owned so CodeLeader can evolve independently
+// from the user's global zellij defaults.
+
+keybinds clear-defaults=true {
+  locked {
+    bind "Ctrl o" { Detach; }
+    bind "Ctrl q" { Quit; }
+  }
+}
+
+default_mode "locked"
+mouse_mode false
+advanced_mouse_actions false
+theme_dir "__THEME_DIR__"
+theme "codeleader"

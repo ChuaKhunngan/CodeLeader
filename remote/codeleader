@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SESSION="${CODELEADER_REMOTE_ZELLIJ_SESSION:-CodeLeader}"
+CONFIG="${CODELEADER_REMOTE_CONFIG_PATH:-$HOME/.codeleader/config/codeleader_session.kdl}"
+
+cmd="${1:-show}"
+shift || true
+
+case "$cmd" in
+  show)
+    exec zellij --config "$CONFIG" attach "$SESSION" "$@"
+    ;;
+  *)
+    echo "Usage: codeleader show" >&2
+    exit 2
+    ;;
+esac

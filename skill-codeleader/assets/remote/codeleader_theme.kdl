@@ -1,0 +1,15 @@
+themes {
+  codeleader {
+    fg 255 255 255
+    bg 0 0 0
+    black 0 0 0
+    red 255 0 0
+    blue 57 255 20
+    yellow 255 255 0
+    magenta 0 0 0
+    cyan 0 255 255
+    green 0 255 0
+    white 255 255 255
+    orange 255 128 0
+  }
+}

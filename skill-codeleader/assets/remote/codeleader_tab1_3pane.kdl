@@ -1,0 +1,21 @@
+layout {
+  tab name="Tab #1" {
+    pane split_direction="vertical" {
+      pane name="CodingAI" {
+        command "bash"
+        args "-lc" "__CODEAI_BOOTSTRAP__"
+      }
+      pane split_direction="horizontal" size=37 {
+        pane name="CodeLeader Status" size=14 {
+          plugin location="file:__PLUGIN_WASM_PATH__"
+        }
+        pane name="Git Status" {
+          plugin location="file:__GIT_PLUGIN_WASM_PATH__" {
+            repo_dir "__CODEAI_DIR__"
+            remote_host "__REMOTE_HOST__"
+          }
+        }
+      }
+    }
+  }
+}
