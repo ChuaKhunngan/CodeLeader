@@ -138,6 +138,12 @@ CODELEADER_FORCE_KILL_8787=1 ./scripts/start_codeleader_stack.sh --recreate
 - The main launcher is the normal entrypoint; you usually do not need to run the lower-level helper scripts directly.
 - The project currently favors a conservative control model: one prompt at a time, then wait for the next hook.
 
+## Contact
+
+For questions, feedback, or collaboration, please contact:
+
+- `kunyan.cai@icloud.com`
+
 ## License
 
 MIT

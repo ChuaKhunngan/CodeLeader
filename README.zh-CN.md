@@ -138,6 +138,12 @@ CODELEADER_FORCE_KILL_8787=1 ./scripts/start_codeleader_stack.sh --recreate
 - 正常使用时，主入口就是 launcher；通常不需要手动调用更底层的 helper scripts
 - 当前默认采用保守控制模型：一次只推进一个 prompt，然后等待下一次 hook
 
+## 联系方式
+
+如果你想反馈问题、交流想法，或讨论合作，可以通过这个邮箱联系：
+
+- `kunyan.cai@icloud.com`
+
 ## License
 
 MIT
