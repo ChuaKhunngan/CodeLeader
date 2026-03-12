@@ -74,12 +74,12 @@ Most coding-AI workflows still force a bad tradeoff:
 
 **CodeLeader is built for the middle path.**
 
-It keeps the **human** and **OpenClaw** on the **same layer**:
-- looking at the same real working surface
+It keeps the **human** and **OpenClaw** working from the same real surface:
+- seeing the same real state
 - reacting through the same control loop
-- deciding together when to hand work to a lower execution layer
+- deciding together when work should continue in the remote coding session
 
-That lower layer is a real remote coding session.
+That execution still happens inside a real remote coding session.
 
 This matters because, in many real workflows, the code and compute are already remote — especially in research, shared servers, and remote compute environments. In those setups, the remote machine should stay the execution lane, not become the user's personal control plane.
 
