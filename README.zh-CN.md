@@ -11,7 +11,33 @@
   <img src="assets/icon/openclaw-codeleader_icon_final_2048.jpg" alt="CodeLeader 图标" width="220">
 </p>
 
-**CodeLeader 想解决的是这样的问题：你想用 OpenClaw 指挥远程 coding agent 干活，但又不想失去对过程的控制。**
+**CodeLeader 让你可以用 OpenClaw 去操作远程 coding 工具，例如 Claude Code、Codex、OpenCode、Gemini CLI —— 从而做到随时随地下达开发任务，同时保留人工控制权。**
+
+一句话定义：
+
+> **OpenClaw 是控制层，远端 coding tool 是执行层，而你可以在任何时候重新接管。**
+
+## CodeLeader 到底是做什么的
+
+有了 CodeLeader，你可以：
+
+- 直接把开发任务交给 OpenClaw
+- 让 OpenClaw 把任务送进一个真实的远程 coding session
+- 让远端 coding tool 在代码和算力本来就存在的机器上执行
+- 在需要时停在审批点，由人类决定是否继续
+- 随时重新进入远端 session，亲自接管
+- 离开一段时间后再回来，并从当前真实状态继续，而不是从过期计划继续
+
+一个最简单的使用场景是：
+
+1. 你现在不在开发机旁边。
+2. 你通过 OpenClaw 下达一个功能开发或 bug 修复任务。
+3. CodeLeader 把这个任务送进远端 coding session。
+4. 远端 coding tool 开始执行。
+5. 如果出现需要人类判断的节点，OpenClaw 会把问题抛回来。
+6. 如果你愿意，也可以随时亲自进入远端 session，直接接手。
+
+## 为什么会有这个项目
 
 现在大多数 coding AI 工作流，仍然绕不开一个很别扭的二选一：
 

@@ -11,7 +11,33 @@
   <img src="assets/icon/openclaw-codeleader_icon_final_2048.jpg" alt="CodeLeader icon" width="220">
 </p>
 
-**CodeLeader is for people who want remote coding power without losing human control.**
+**CodeLeader lets you use OpenClaw to operate remote coding tools like Claude Code, Codex, OpenCode, and Gemini CLI — so you can assign development work anytime, from anywhere, while keeping human control.**
+
+In one line:
+
+> **OpenClaw is the control layer. The coding tool runs remotely as the execution layer. You can step in and take over at any time.**
+
+## What CodeLeader actually does
+
+With CodeLeader, you can:
+
+- send a development task to OpenClaw
+- have OpenClaw route that task into a real remote coding session
+- let the remote coding tool execute on the machine where the code and compute already live
+- pause for approvals when needed
+- rejoin the remote session and take over manually at any moment
+- leave, come back later, and continue from the current real state instead of a stale plan
+
+A simple example:
+
+1. You are away from your dev box.
+2. You tell OpenClaw to implement a feature or fix a bug.
+3. CodeLeader brings that task into the remote coding session.
+4. The coding tool works remotely.
+5. If human judgment is needed, OpenClaw asks.
+6. If you want, you can jump into the remote session yourself and continue live.
+
+## Why this exists
 
 Most coding-AI workflows still force a bad tradeoff:
 
