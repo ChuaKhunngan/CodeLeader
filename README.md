@@ -37,6 +37,13 @@ A simple example:
 5. If human judgment is needed, OpenClaw asks.
 6. If you want, you can jump into the remote session yourself and continue live.
 
+## Why CodeLeader instead of just using SSH, a background agent, or a desktop wrapper?
+
+- **Not just SSH:** SSH gives you terminal access, but not a shared control model between you and OpenClaw.
+- **Not just a background agent:** background automation can run, but you lose visibility, structured approvals, and clean handoff.
+- **Not just a desktop wrapper:** GUI shells may look friendlier, but they still tend to keep the human glued to the screen.
+- **CodeLeader's angle:** keep the coding tool in a real remote terminal, keep OpenClaw as the control layer, and keep the human able to step in at any time.
+
 ## Who this is for
 
 CodeLeader is a good fit if you:
