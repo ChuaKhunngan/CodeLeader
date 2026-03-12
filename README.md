@@ -38,10 +38,10 @@ Example flow:
 
 1. You ask OpenClaw to fix a bug or implement a feature in a project that lives on a specific remote machine.
 2. OpenClaw keeps the execution on that remote machine, inside the coding session where the project and compute already live.
-3. OpenClaw keeps following the run, correcting drift and handling routine approvals.
-4. If human judgment is needed, OpenClaw asks.
-5. If you want, you can intervene through OpenClaw or directly in the remote session.
-6. Work then continues from the current real state.
+3. OpenClaw keeps following the run, steering it back on course and handling routine approvals.
+4. If real human judgment is needed, OpenClaw asks.
+5. If you want to step in, you can do it through OpenClaw or directly in the remote session.
+6. The work then continues from the current real state.
 
 ## Why CodeLeader instead of just using SSH, a background agent, or a desktop wrapper?
 
