@@ -59,7 +59,6 @@ CodeLeader is a good fit if you:
 - run those tools on a remote machine, shared server, lab box, or cloud dev environment
 - want to assign work without staying glued to the terminal the whole time
 - still want approvals, visibility, and human takeover when things get risky or ambiguous
-- prefer terminal-native coding agents over GUI-first wrappers
 
 ## Who this is not for
 
