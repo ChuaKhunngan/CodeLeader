@@ -63,12 +63,12 @@ CodeLeader is a good fit if you:
 
 ## Who this is not for
 
-CodeLeader is probably not the right tool if you:
+CodeLeader is probably not the right fit if you are looking for something else, such as:
 
-- want a fully autonomous black-box coding agent with no human checkpoints
-- want a local desktop IDE replacement as the primary product
-- do all development locally and do not need a remote execution lane
-- want a point-and-click GUI workflow first, with terminal support as a side feature
+- a fully autonomous black-box coding agent with no human checkpoints
+- a local desktop IDE replacement as the primary product
+- a workflow that stays entirely local and does not need a remote execution lane
+- a GUI-first experience where the terminal is only a secondary feature
 
 ## Why this exists
 
