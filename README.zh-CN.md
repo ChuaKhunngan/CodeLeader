@@ -37,6 +37,25 @@
 5. 如果出现需要人类判断的节点，OpenClaw 会把问题抛回来。
 6. 如果你愿意，也可以随时亲自进入远端 session，直接接手。
 
+## 适合谁
+
+如果你符合下面这些情况，CodeLeader 会比较适合你：
+
+- 你已经在用，或准备把 OpenClaw 作为控制层
+- 你的 coding tool 跑在远端机器、共享服务器、实验机或云端开发环境里
+- 你希望能布置任务，但不想全程盯着终端
+- 你仍然希望保留审批、可见性，以及在关键时刻由人类接管的能力
+- 你偏好 terminal-native coding tools，而不是把 GUI 壳当成主产品
+
+## 不太适合谁
+
+如果你更偏向下面这些需求，那 CodeLeader 大概率不是最合适的选择：
+
+- 你想要一个完全黑箱、没有人工检查点的全自动 coding agent
+- 你想要的是本地桌面 IDE 替代品，而且这才是主产品形态
+- 你的开发完全在本地完成，并不需要远端执行层
+- 你更希望 first-class 的是点点点 GUI，而终端只是附属功能
+
 ## 为什么会有这个项目
 
 现在大多数 coding AI 工作流，仍然绕不开一个很别扭的二选一：
@@ -104,18 +123,12 @@ CodeLeader 内建了人类接管能力：你可以随时接管远端 coding agen
 
 ## 快速开始
 
-### 1. 安装 release bundle
+开始使用只需要三件事：
 
-下载 release 包，并把它解压到你的 OpenClaw skills 目录中。
-解压后的文件夹名称应保持为：
+1. **把 CodeLeader release bundle 安装到 OpenClaw skills 目录**
+2. **确保本地机器可以 SSH 到将要运行 coding tool 的远端机器**
+3. **直接告诉 OpenClaw 用 CodeLeader 处理一个真实任务**
 
-```text
-codeleader/
-```
-
-### 2. 直接告诉 OpenClaw 使用 CodeLeader
-
-然后直接告诉 OpenClaw，你希望 CodeLeader 做什么。
 例如：
 
 ```text
@@ -124,9 +137,7 @@ Use CodeLeader to build a Pomodoro timer app with task tracking.
 
 OpenClaw 会在需要时自动补全缺失的启动信息，并通过这个 skill bundle 拉起整套系统。
 
-### 3. 需要实时协作时，进入远端 session
-
-如果你想亲自进入那个共享工作面，与 OpenClaw 一起协作：
+如果你想亲自进入共享工作面：
 
 ```bash
 ssh <remote-host>
@@ -134,6 +145,14 @@ codeleader show
 ```
 
 这会直接打开远端的 CodeLeader session。
+
+### Release bundle 目录名
+
+解压后的 release 文件夹名称应保持为：
+
+```text
+codeleader/
+```
 
 ## 给开发者：直接使用 launcher
 

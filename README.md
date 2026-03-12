@@ -37,6 +37,25 @@ A simple example:
 5. If human judgment is needed, OpenClaw asks.
 6. If you want, you can jump into the remote session yourself and continue live.
 
+## Who this is for
+
+CodeLeader is a good fit if you:
+
+- already use or want to use OpenClaw as your control layer
+- run coding tools on a remote machine, shared server, lab box, or cloud dev environment
+- want to assign work without staying glued to the terminal the whole time
+- still want approvals, visibility, and human takeover when things get risky or ambiguous
+- prefer terminal-native coding tools over GUI-only wrappers
+
+## Who this is not for
+
+CodeLeader is probably not the right tool if you:
+
+- want a fully autonomous black-box coding agent with no human checkpoints
+- want a local desktop IDE replacement as the primary product
+- do all development locally and do not need a remote execution lane
+- want a point-and-click GUI workflow first, with terminal support as a side feature
+
 ## Why this exists
 
 Most coding-AI workflows still force a bad tradeoff:
@@ -104,19 +123,13 @@ Before using CodeLeader, make sure the remote machine has:
 
 ## Quick start
 
-### 1. Install the release bundle
+You only need three things to get started:
 
-Download the release bundle and unpack it into your OpenClaw skills directory.
-The unpacked folder name should be:
+1. **Install the CodeLeader release bundle** into your OpenClaw skills directory
+2. **Make sure your local machine can SSH to the remote machine** where the coding tool will run
+3. **Ask OpenClaw to use CodeLeader** for a real task
 
-```text
-codeleader/
-```
-
-### 2. Ask OpenClaw to use CodeLeader
-
-Then just tell OpenClaw what you want to build with CodeLeader.
-For example:
+Example:
 
 ```text
 Use CodeLeader to build a Pomodoro timer app with task tracking.
@@ -124,9 +137,7 @@ Use CodeLeader to build a Pomodoro timer app with task tracking.
 
 OpenClaw should then collect any missing startup information and bring the stack up through the skill bundle.
 
-### 3. Join the remote session when you want to collaborate live
-
-When you want to step into the shared working surface with OpenClaw:
+When you want to join the shared working surface yourself:
 
 ```bash
 ssh <remote-host>
@@ -134,6 +145,14 @@ codeleader show
 ```
 
 This opens the remote CodeLeader session directly.
+
+### Bundle layout
+
+The unpacked release folder should be:
+
+```text
+codeleader/
+```
 
 ## For developers: direct launcher usage
 
