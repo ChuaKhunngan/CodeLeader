@@ -19,7 +19,7 @@
 
 ## 演示视频
 
-[![CodeLeader Demo](https://img.youtube.com/vi/etS0LbTKCsY/maxresdefault.jpg)](https://youtu.be/etS0LbTKCsY)
+[![CodeLeader Demo](assets/CodeLeader.gif)](https://youtu.be/etS0LbTKCsY)
 
 ▶ 在 YouTube 观看完整演示： https://youtu.be/etS0LbTKCsY
 

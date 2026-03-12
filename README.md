@@ -19,7 +19,7 @@
 
 ## Demo Video
 
-[![CodeLeader Demo](https://img.youtube.com/vi/etS0LbTKCsY/maxresdefault.jpg)](https://youtu.be/etS0LbTKCsY)
+[![CodeLeader Demo](assets/CodeLeader.gif)](https://youtu.be/etS0LbTKCsY)
 
 ▶ Watch the full demo on YouTube: https://youtu.be/etS0LbTKCsY
 
