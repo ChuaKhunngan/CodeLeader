@@ -37,7 +37,7 @@ Instead of pulling the work back into a local IDE or treating coding AI as a swa
 Example flow:
 
 1. You ask OpenClaw to fix a bug or implement a feature in a project that lives on a specific remote machine.
-2. OpenClaw pushes the work into the remote coding session where the project and compute already live.
+2. OpenClaw keeps the execution on that remote machine, inside the coding session where the project and compute already live.
 3. OpenClaw keeps following the run, correcting drift and handling routine approvals.
 4. If human judgment is needed, OpenClaw asks.
 5. If you want, you can intervene through OpenClaw or directly in the remote session.
