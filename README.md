@@ -30,15 +30,7 @@
 ## What CodeLeader actually does
 
 CodeLeader does not just send work to a remote coding tool and wait.
-OpenClaw stays responsible for the run:
-
-- keeps following execution after kickoff
-- corrects drift when the work goes off track
-- handles routine approvals on its own
-- asks the human only when real judgment is needed
-- reports progress when the human wants visibility
-- supports takeover through OpenClaw or directly in the remote session
-- continues from the current live state after intervention
+OpenClaw stays responsible for the run from kickoff to completion or intervention.
 
 Example flow:
 
