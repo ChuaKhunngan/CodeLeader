@@ -11,9 +11,9 @@
   <img src="assets/icon/openclaw-codeleader_icon_final_2048.jpg" alt="CodeLeader icon" width="220">
 </p>
 
-**CodeLeader turns OpenClaw into a project manager for remote coding AI — tracking execution, correcting drift, handling approvals, reporting progress, and bringing in the human only when needed.**
+**CodeLeader turns OpenClaw into a project manager for terminal-native coding AI tools like Claude Code, Codex, OpenCode, and Gemini CLI — tracking execution, correcting drift, handling approvals, reporting progress, and bringing in the human only when needed.**
 
-> **Remote coding tools execute the work. OpenClaw stays on top of the project. The human can intervene through OpenClaw or directly in the remote session at any time.**
+> **These tools are coding agents that run in a real terminal session, not IDEs like VS Code. Remote coding AI tools execute the work. OpenClaw stays on top of the project. The human can intervene through OpenClaw or directly in the remote session at any time.**
 
 **Status:** First public open-source release. Claude Code workflow validated. Broader tool coverage is in progress.
 
