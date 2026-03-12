@@ -11,17 +11,19 @@
   <img src="assets/icon/openclaw-codeleader_icon_final_2048.jpg" alt="CodeLeader 图标" width="220">
 </p>
 
-**用 OpenClaw 把开发任务派发给远端 Claude Code、Codex、OpenCode、Gemini CLI 等 coding tools，并在你想接手的时候随时接手。**
+**CodeLeader 让 OpenClaw 不只是派发任务，而是像项目经理一样持续管理远端 coding AI：跟进执行进度、纠正偏航、处理审批、汇报状态，并只在必要时把问题升级给人类。**
 
-> **CodeLeader 是一个面向 OpenClaw 的远程 coding 控制系统：OpenClaw 负责协调，远端 coding tools 负责执行，而人类始终保留控制权。**
+> **远端 coding tools 负责执行工作，OpenClaw 负责盯住整个项目，而人类可以在任何时候通过 OpenClaw 或直接进入远端 session 介入。**
 
 **状态：** 已完成第一次公开开源发布；Claude Code 路径已验证；更广泛的工具支持正在推进中。
 
 ## 核心能力
 
 - 通过 OpenClaw 把开发任务送进真实的远程 coding session
+- 持续跟进进度，并在执行偏离轨道时把工作拉回正轨
 - 把审批点保留在人类控制环中，而不是静默自动推进
-- 允许人类在任何时候重新接管远端 session
+- 在人类希望获知进度时，通过 Telegram 等通道汇报状态
+- 允许人类通过 OpenClaw 或直接进入远端 coding session 随时接管
 - 在人类介入后，从当前实时终端状态继续推进
 - 为 terminal-native coding tools 提供统一的上层控制模型
 
