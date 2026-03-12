@@ -67,7 +67,7 @@ CodeLeader is probably not the right fit if you are looking for something else, 
 - a fully autonomous black-box coding agent with no human checkpoints
 - a local desktop IDE replacement as the primary product
 - a workflow that stays entirely local and does not need a remote execution lane
-- a GUI-first experience where the terminal is only a secondary feature
+- a workflow centered on a local GUI environment rather than a remote execution lane
 
 ## Why this exists
 
