@@ -19,7 +19,7 @@
 
 ## Core capabilities
 
-- manage a real remote coding session without giving up control of the execution flow
+- manage a project's development progress by pushing coding work into a remote coding session and keeping OpenClaw on top of the run
 - track progress and steer the work back when implementation drifts
 - let OpenClaw handle routine approvals first, then escalate to the human only when needed
 - report status on demand through OpenClaw, including channels like Telegram
