@@ -29,23 +29,28 @@
 
 ## What CodeLeader actually does
 
-With CodeLeader, you can:
+With CodeLeader, OpenClaw does more than hand off a task and wait.
+It stays responsible for the overall flow of execution:
 
-- send a development task to OpenClaw
-- have OpenClaw route that task into a real remote coding session
-- let the remote coding tool execute on the machine where the code and compute already live
-- pause for approvals when needed
-- rejoin the remote session and take over manually at any moment
-- leave, come back later, and continue from the current real state instead of a stale plan
+- bring the work into a real remote coding session
+- monitor progress instead of disappearing after kickoff
+- correct the course when the implementation starts drifting
+- handle routine approvals and execution decisions on its own when possible
+- ask the human only when the situation truly needs human judgment
+- report progress when the human wants visibility
+- support human intervention either through OpenClaw or directly in the remote coding session
+- continue from the current live state after intervention, rather than blindly resuming an outdated plan
 
 A simple example:
 
 1. You are away from your dev box.
-2. You tell OpenClaw to implement a feature or fix a bug.
-3. CodeLeader brings that task into the remote coding session.
-4. The coding tool works remotely.
-5. If human judgment is needed, OpenClaw asks.
-6. If you want, you can jump into the remote session yourself and continue live.
+2. You ask OpenClaw to implement a feature or fix a bug.
+3. OpenClaw brings that work into the remote coding session and keeps following the run.
+4. If the work drifts, OpenClaw steers it back.
+5. If a routine approval is needed, OpenClaw handles it.
+6. If real human judgment is needed, OpenClaw asks.
+7. If you want, you can step in through OpenClaw or directly take over the remote session yourself.
+8. When the intervention is over, work continues from the current real state.
 
 ## Why CodeLeader instead of just using SSH, a background agent, or a desktop wrapper?
 
