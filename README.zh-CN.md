@@ -11,9 +11,9 @@
   <img src="assets/icon/openclaw-codeleader_icon_final_2048.jpg" alt="CodeLeader 图标" width="220">
 </p>
 
-**CodeLeader 让 OpenClaw 不只是派发任务，而是像项目经理一样持续管理远端 terminal-native coding AI tools，例如 Claude Code、Codex、OpenCode、Gemini CLI：跟进执行进度、纠正偏航、处理审批、汇报状态，并只在必要时把问题升级给人类。**
+**CodeLeader 让 OpenClaw 不只是派发任务，而是像项目经理一样持续管理远端 terminal-native coding agents，例如 Claude Code、Codex、OpenCode、Gemini CLI：跟进执行进度、纠正偏航、处理审批、汇报状态，并只在必要时把问题升级给人类。**
 
-> **这里的工具指的是运行在真实终端 session 里的 coding agent，而不是 VS Code 这类 IDE。远端 coding tools 负责执行工作，OpenClaw 负责盯住整个项目，而人类可以在任何时候通过 OpenClaw 或直接进入远端 session 介入。**
+> **这里指的是运行在真实终端 session 里的 coding agents，而不是 VS Code 这类 IDE。它们负责在远端执行工作，OpenClaw 负责盯住整个项目，而人类可以在任何时候通过 OpenClaw 或直接进入远端 session 介入。**
 
 **状态：** 已完成第一次公开开源发布；Claude Code 路径已验证；更广泛的工具支持正在推进中。
 
