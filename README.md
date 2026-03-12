@@ -19,12 +19,12 @@
 
 ## Core capabilities
 
-- dispatch development tasks through OpenClaw into a real remote coding session
-- track progress and steer the work back when execution drifts off course
-- keep approvals in the human loop instead of silently pushing forward
-- report updates when the human wants visibility, including through channels like Telegram
-- let humans take over either through OpenClaw or directly in the remote coding session
-- resume from the current live terminal state after human intervention
+- send work into a real remote coding session while OpenClaw stays responsible for the overall execution flow
+- track progress continuously and steer the work back when the implementation drifts off course
+- let OpenClaw handle routine approvals and execution decisions first, then escalate to the human only when judgment is actually needed
+- keep the human informed with progress updates when needed, including through channels like Telegram
+- let humans step in either by asking OpenClaw to intervene or by directly taking over the remote coding session themselves
+- continue from the live terminal state after OpenClaw intervention or human takeover, instead of resuming from a stale plan
 - provide one higher-level control model across terminal-native coding tools
 
 ## What CodeLeader actually does

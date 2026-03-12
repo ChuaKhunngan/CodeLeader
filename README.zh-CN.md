@@ -19,12 +19,12 @@
 
 ## 核心能力
 
-- 通过 OpenClaw 把开发任务送进真实的远程 coding session
-- 持续跟进进度，并在执行偏离轨道时把工作拉回正轨
-- 把审批点保留在人类控制环中，而不是静默自动推进
-- 在人类希望获知进度时，通过 Telegram 等通道汇报状态
-- 允许人类通过 OpenClaw 或直接进入远端 coding session 随时接管
-- 在人类介入后，从当前实时终端状态继续推进
+- 通过 OpenClaw 把工作送进真实的远程 coding session，同时由 OpenClaw 对整体执行流程负责
+- 持续跟进进度，并在实现偏离轨道时把工作拉回正轨
+- 由 OpenClaw 优先处理日常审批与执行决策，只有在确实需要判断时才升级给人类
+- 在人类需要了解进展时，通过 Telegram 等通道汇报状态
+- 允许人类通过 OpenClaw 发起介入，或直接进入远端 coding session 亲自接管
+- 在 OpenClaw 介入或人类接管后，从实时终端状态继续推进，而不是回到过期计划
 - 为 terminal-native coding tools 提供统一的上层控制模型
 
 ## CodeLeader 到底是做什么的
