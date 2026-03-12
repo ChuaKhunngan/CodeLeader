@@ -19,38 +19,35 @@
 
 ## Core capabilities
 
-- send work into a real remote coding session while OpenClaw stays responsible for the overall execution flow
-- track progress continuously and steer the work back when the implementation drifts off course
-- let OpenClaw handle routine approvals and execution decisions first, then escalate to the human only when judgment is actually needed
-- keep the human informed with progress updates when needed, including through channels like Telegram
-- let humans step in either by asking OpenClaw to intervene or by directly taking over the remote coding session themselves
-- continue from the live terminal state after OpenClaw intervention or human takeover, instead of resuming from a stale plan
-- provide one higher-level control model across terminal-native coding tools
+- manage a real remote coding session without giving up control of the execution flow
+- track progress and steer the work back when implementation drifts
+- let OpenClaw handle routine approvals first, then escalate to the human only when needed
+- report status on demand through OpenClaw, including channels like Telegram
+- support human takeover through OpenClaw or directly in the remote session
+- resume from the live terminal state after OpenClaw or human intervention
 
 ## What CodeLeader actually does
 
-With CodeLeader, OpenClaw does more than hand off a task and wait.
-It stays responsible for the overall flow of execution:
+CodeLeader does not just send work to a remote coding tool and wait.
+OpenClaw stays responsible for the run:
 
-- bring the work into a real remote coding session
-- monitor progress instead of disappearing after kickoff
-- correct the course when the implementation starts drifting
-- handle routine approvals and execution decisions on its own when possible
-- ask the human only when the situation truly needs human judgment
-- report progress when the human wants visibility
-- support human intervention either through OpenClaw or directly in the remote coding session
-- continue from the current live state after intervention, rather than blindly resuming an outdated plan
+- keeps following execution after kickoff
+- corrects drift when the work goes off track
+- handles routine approvals on its own
+- asks the human only when real judgment is needed
+- reports progress when the human wants visibility
+- supports takeover through OpenClaw or directly in the remote session
+- continues from the current live state after intervention
 
-A simple example:
+Example flow:
 
-1. You are away from your dev box.
-2. You ask OpenClaw to implement a feature or fix a bug.
-3. OpenClaw brings that work into the remote coding session and keeps following the run.
-4. If the work drifts, OpenClaw steers it back.
-5. If a routine approval is needed, OpenClaw handles it.
-6. If real human judgment is needed, OpenClaw asks.
-7. If you want, you can step in through OpenClaw or directly take over the remote session yourself.
-8. When the intervention is over, work continues from the current real state.
+1. You ask OpenClaw to implement a feature or fix a bug.
+2. OpenClaw brings the work into the remote coding session and keeps following it.
+3. If the work drifts, OpenClaw steers it back.
+4. If a routine approval is needed, OpenClaw handles it.
+5. If human judgment is needed, OpenClaw asks.
+6. If you want, you can intervene through OpenClaw or directly in the remote session.
+7. Work then continues from the current real state.
 
 ## Why CodeLeader instead of just using SSH, a background agent, or a desktop wrapper?
 
