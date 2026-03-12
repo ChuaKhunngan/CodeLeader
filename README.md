@@ -54,7 +54,7 @@ Example flow:
 
 CodeLeader is a good fit if you:
 
-- already use or want to use OpenClaw as your control layer
+- your workflow already includes terminal-native coding agents like Claude Code, Codex, OpenCode, or Gemini CLI, and you want to use them anytime instead of only when you are physically at the screen and keyboard
 - run coding tools on a remote machine, shared server, lab box, or cloud dev environment
 - want to assign work without staying glued to the terminal the whole time
 - still want approvals, visibility, and human takeover when things get risky or ambiguous
