@@ -19,11 +19,12 @@
 
 ## 核心能力
 
-- 管理一个项目的开发进度，并把 coding 工作推送到远端 coding session 里执行，同时由 OpenClaw 持续盯住这次运行
-- 持续跟进进度，并在实现偏航时把工作拉回正轨
+- 通过真实的远程 coding session 管理一个项目的开发进度
+- 把 coding 工作推送到 Claude Code、Codex、OpenCode、Gemini CLI 这类 terminal-native coding agents 中执行
+- 让 OpenClaw 持续跟进执行，并在工作偏航时纠正方向
 - 由 OpenClaw 优先处理日常审批，只有必要时才升级给人类
 - 在人类需要了解进展时，通过 OpenClaw 与 Telegram 等通道汇报状态
-- 支持通过 OpenClaw 或直接进入远端 session 的方式接管
+- 支持通过 OpenClaw 或直接进入远端 coding session 的方式接管
 - 在 OpenClaw 或人类介入后，从实时终端状态继续推进
 
 ## CodeLeader 到底是做什么的
