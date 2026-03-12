@@ -29,18 +29,18 @@
 
 ## CodeLeader 到底是做什么的
 
-CodeLeader 做的不是把工作丢给远端 coding tool 然后等结果。
-从启动到完成或介入，OpenClaw 会持续对这次执行负责。
+CodeLeader 面向的是这样一类场景：真正的执行环境本来就在远端——例如共享服务器、实验机、云端开发机、多设备协作，或者项目本身就已经放在远端机器上。
+
+它不是把工作重新拉回本地 IDE，也不是把 coding AI 当成 ACP / Apex 这类协议优先的 swarm agents 来编排；CodeLeader 的做法是让执行继续留在真实的远端终端 session 里，由 OpenClaw 在上层持续管理整次运行。
 
 一个典型流程是：
 
 1. 你让 OpenClaw 去实现一个功能或修复一个 bug。
-2. OpenClaw 把工作送进远端 coding session，并持续跟进。
-3. 如果工作偏航，OpenClaw 会把它拉回来。
-4. 如果出现日常审批节点，OpenClaw 会先自行处理。
-5. 如果真的需要人类判断，OpenClaw 才会来问你。
-6. 如果你愿意，你可以通过 OpenClaw 发起介入，或者直接进入远端 session 接手。
-7. 之后工作会从当前真实状态继续推进。
+2. OpenClaw 把工作推送到项目和算力本来就所在的远端 coding session。
+3. OpenClaw 持续跟进这次执行，纠正偏航并处理日常审批。
+4. 如果真的需要人类判断，OpenClaw 才会来问你。
+5. 如果你愿意，你可以通过 OpenClaw 发起介入，或者直接进入远端 session 接手。
+6. 之后工作会从当前真实状态继续推进。
 
 ## 为什么不是直接 SSH、后台 agent，或者桌面壳？
 

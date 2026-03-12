@@ -29,18 +29,19 @@
 
 ## What CodeLeader actually does
 
-CodeLeader does not just send work to a remote coding tool and wait.
-OpenClaw stays responsible for the run from kickoff to completion or intervention.
+CodeLeader is built for cases where the real execution environment is already remote:
+shared servers, lab machines, cloud dev boxes, multi-device workflows, or projects that already live on a remote machine.
+
+Instead of pulling the work back into a local IDE or treating coding AI as a swarm of protocol-level agents, CodeLeader keeps the execution inside a real remote terminal session and lets OpenClaw manage the run from above.
 
 Example flow:
 
 1. You ask OpenClaw to implement a feature or fix a bug.
-2. OpenClaw brings the work into the remote coding session and keeps following it.
-3. If the work drifts, OpenClaw steers it back.
-4. If a routine approval is needed, OpenClaw handles it.
-5. If human judgment is needed, OpenClaw asks.
-6. If you want, you can intervene through OpenClaw or directly in the remote session.
-7. Work then continues from the current real state.
+2. OpenClaw pushes the work into the remote coding session where the project and compute already live.
+3. OpenClaw keeps following the run, correcting drift and handling routine approvals.
+4. If human judgment is needed, OpenClaw asks.
+5. If you want, you can intervene through OpenClaw or directly in the remote session.
+6. Work then continues from the current real state.
 
 ## Why CodeLeader instead of just using SSH, a background agent, or a desktop wrapper?
 
