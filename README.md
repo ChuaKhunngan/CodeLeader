@@ -17,6 +17,12 @@
 
 **Status:** First public open-source release. Claude Code workflow validated. Broader tool coverage is in progress.
 
+## Demo Video
+
+[![CodeLeader Demo](https://img.youtube.com/vi/etS0LbTKCsY/maxresdefault.jpg)](https://youtu.be/etS0LbTKCsY)
+
+▶ Watch the full demo on YouTube: https://youtu.be/etS0LbTKCsY
+
 ## Core capabilities
 
 - manage a project's development progress through a real remote coding session

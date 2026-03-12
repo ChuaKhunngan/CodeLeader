@@ -17,6 +17,12 @@
 
 **状态：** 已完成第一次公开开源发布；Claude Code 路径已验证；更广泛的工具支持正在推进中。
 
+## 演示视频
+
+[![CodeLeader Demo](https://img.youtube.com/vi/etS0LbTKCsY/maxresdefault.jpg)](https://youtu.be/etS0LbTKCsY)
+
+▶ 在 YouTube 观看完整演示： https://youtu.be/etS0LbTKCsY
+
 ## 核心能力
 
 - 通过真实的远程 coding session 管理一个项目的开发进度
