@@ -11,11 +11,19 @@
   <img src="assets/icon/openclaw-codeleader_icon_final_2048.jpg" alt="CodeLeader icon" width="220">
 </p>
 
-**CodeLeader lets you use OpenClaw to operate remote coding tools like Claude Code, Codex, OpenCode, and Gemini CLI — so you can assign development work anytime, from anywhere, while keeping human control.**
+**Use OpenClaw to assign coding work to remote tools like Claude Code, Codex, OpenCode, and Gemini CLI — then step in whenever you want.**
 
-In one line:
+> **CodeLeader is a remote coding-control system for OpenClaw: OpenClaw coordinates, remote coding tools execute, and the human stays in control.**
 
-> **OpenClaw is the control layer. The coding tool runs remotely as the execution layer. You can step in and take over at any time.**
+**Status:** First public open-source release. Claude Code workflow validated. Broader tool coverage is in progress.
+
+## Core capabilities
+
+- dispatch development tasks through OpenClaw into a real remote coding session
+- keep approvals in the human loop instead of silently pushing forward
+- let humans take over the remote session at any time
+- resume from the current live terminal state after human intervention
+- provide one higher-level control model across terminal-native coding tools
 
 ## What CodeLeader actually does
 
