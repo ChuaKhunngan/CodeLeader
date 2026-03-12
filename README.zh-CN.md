@@ -11,7 +11,7 @@
   <img src="assets/icon/openclaw-codeleader_icon_final_2048.jpg" alt="CodeLeader 图标" width="220">
 </p>
 
-**CodeLeader 让 OpenClaw 不只是派发任务，而是像项目经理一样持续管理远端 terminal-native coding agents，例如 Claude Code、Codex、OpenCode、Gemini CLI：跟进执行进度、纠正偏航、处理审批、汇报状态，并只在必要时把问题升级给人类。**
+**CodeLeader 让 OpenClaw 不只是派发任务，而是像项目经理一样持续管理远端 terminal-native coding agents，例如 Claude Code、Codex、OpenCode、Gemini CLI：跟进执行进度、纠正偏航、处理审批、汇报状态，并只在必要时向人类请示。**
 
 > **这里指的是运行在真实终端 session 里的 coding agents，而不是 VS Code 这类 IDE。它们负责在远端执行工作，OpenClaw 负责盯住整个项目，而人类可以在任何时候通过 OpenClaw 或直接进入远端 session 介入。**
 
@@ -22,8 +22,8 @@
 - 通过真实的远程 coding session 管理一个项目的开发进度
 - 把 coding 工作推送到 Claude Code、Codex、OpenCode、Gemini CLI 这类 terminal-native coding agents 中执行
 - 让 OpenClaw 持续跟进执行，并在工作偏航时纠正方向
-- 由 OpenClaw 优先处理日常审批，只有必要时才升级给人类
-- 在人类需要了解进展时，通过 OpenClaw 与 Telegram 等通道汇报状态
+- 由 OpenClaw 优先处理日常审批，只有必要时才向人类请示
+- 在人类需要了解进展时，通过 OpenClaw 的 Telegram、WhatsApp 等通道即时通知并汇报状态
 - 支持通过 OpenClaw 或直接进入远端 coding session 的方式接管
 - 在 OpenClaw 或人类介入后，从实时终端状态继续推进
 

@@ -22,8 +22,8 @@
 - manage a project's development progress through a real remote coding session
 - push coding work into terminal-native coding agents like Claude Code, Codex, OpenCode, and Gemini CLI
 - keep OpenClaw following the run and correcting drift when execution goes off track
-- let OpenClaw handle routine approvals first and escalate to the human only when needed
-- report progress through OpenClaw when the human wants visibility, including channels like Telegram
+- let OpenClaw handle routine approvals first and bring in the human only when needed
+- report progress through OpenClaw's channels, such as Telegram or WhatsApp, when the human wants visibility
 - support takeover through OpenClaw or directly in the remote coding session
 - continue from the live terminal state after OpenClaw or human intervention
 
