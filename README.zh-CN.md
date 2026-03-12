@@ -53,12 +53,12 @@ CodeLeader 面向的是这样一类场景：真正的执行环境本来就在远
 
 如果你符合下面这些情况，CodeLeader 会比较适合你：
 
-- 你的工作链条里已经包含 Claude Code、Codex、OpenCode、Gemini CLI 这类命令行 coding agents
+- 你的工作链条里已经依赖 Claude Code、Codex、OpenCode、Gemini CLI 这类命令行 coding agents
 - 你希望随时随地调动这些工具，而不是只有守在屏幕和键盘前时才能使用
-- 你的 coding tool 跑在远端机器、共享服务器、实验机或云端开发环境里
+- 你在远端机器、共享服务器、实验机或云端开发环境里运行这些工具
 - 你希望能布置任务，但不想全程盯着终端
 - 你仍然希望保留审批、可见性，以及在关键时刻由人类接管的能力
-- 你偏好 terminal-native coding tools，而不是把 GUI 壳当成主产品
+- 相比 GUI-first 的包装方式，你更偏好 terminal-native coding agents
 
 ## 不太适合谁
 
