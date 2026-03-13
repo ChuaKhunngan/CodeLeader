@@ -203,4 +203,4 @@ For questions, feedback, or collaboration, please contact:
 
 ## License
 
-MIT
+AGPLv3
