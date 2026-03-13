@@ -202,4 +202,4 @@ CODELEADER_FORCE_KILL_8787=1 ./scripts/start_codeleader_stack.sh --recreate
 
 ## License
 
-MIT
+AGPLv3
