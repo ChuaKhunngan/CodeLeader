@@ -36,11 +36,11 @@ fi
 REMOTE_PLUGIN_DIR="$REMOTE_HOME/.codeleader/services/codeleader_plugins/current"
 REMOTE_WASM="${CODELEADER_REMOTE_WASM_PATH:-$REMOTE_PLUGIN_DIR/codeleader_vision/target/wasm32-wasip1/release/codeleader_vision.wasm}"
 REMOTE_GIT_WASM="${CODELEADER_REMOTE_GIT_WASM_PATH:-$REMOTE_PLUGIN_DIR/codeleader_git_status/target/wasm32-wasip1/release/codeleader_git_status.wasm}"
-REMOTE_CONFIG_TEMPLATE="$ROOT_DIR/assets/remote/codeleader_session.kdl"
-REMOTE_WRAPPER_TEMPLATE="$ROOT_DIR/assets/remote/codeleader"
+REMOTE_CONFIG_TEMPLATE="$ROOT_DIR/remote/codeleader_session.kdl"
+REMOTE_WRAPPER_TEMPLATE="$ROOT_DIR/remote/codeleader"
 REMOTE_CONFIG_DIR="$REMOTE_HOME/.codeleader/config"
 REMOTE_CONFIG_PATH="$REMOTE_CONFIG_DIR/codeleader_session.kdl"
-REMOTE_THEME_TEMPLATE="$ROOT_DIR/assets/remote/codeleader_theme.kdl"
+REMOTE_THEME_TEMPLATE="$ROOT_DIR/remote/codeleader_theme.kdl"
 REMOTE_THEME_DIR="$REMOTE_CONFIG_DIR/themes"
 REMOTE_THEME_PATH="$REMOTE_THEME_DIR/codeleader_theme.kdl"
 REMOTE_BIN_DIR="$REMOTE_HOME/.local/bin"
@@ -149,7 +149,7 @@ if [[ "$MODE" == "recreate" ]]; then
   ./scripts/down.sh || true
 
   echo "[2/6] Stop remote watcher"
-  CODELEADER_REMOTE_SSH_HOST="$REMOTE_HOST" CODELEADER_REMOTE_HOME="$REMOTE_HOME" ./scripts/bootstrap_remote.sh --stop || true
+  CODELEADER_REMOTE_SSH_HOST="$REMOTE_HOST" ./scripts/bootstrap_remote.sh --stop || true
 
   echo "[2.5/6] Verify local sentinel port is free after down"
   handle_local_8787_conflict_after_down || exit 1
@@ -160,7 +160,7 @@ else
 fi
 
 echo "[3/6] Start local sentinel + tunnel"
-CODELEADER_ALLOW_REMOTE_EXEC="${CODELEADER_ALLOW_REMOTE_EXEC:-1}" CODELEADER_ENABLE_TUNNEL=1 CODELEADER_LOG_PROMPT_READY_HEARTBEAT=1 CODELEADER_REMOTE_SSH_HOST="$REMOTE_HOST" ./scripts/up.sh
+CODELEADER_ALLOW_REMOTE_EXEC="${CODELEADER_ALLOW_REMOTE_EXEC:-1}" CODELEADER_ENABLE_TUNNEL=1 CODELEADER_LOG_PROMPT_READY_HEARTBEAT=1 CODELEADER_REMOTE_SSH_HOST="$REMOTE_HOST" CODELEADER_NOTIFY_CMD="${CODELEADER_NOTIFY_CMD:-}" CODELEADER_NOTIFY_TIMEOUT_SECONDS="${CODELEADER_NOTIFY_TIMEOUT_SECONDS:-}" ./scripts/up.sh
 
 echo "[4/6] Ensure remote plugin deploy/permission (watcher disabled)"
 if ! CODELEADER_REMOTE_SSH_HOST="$REMOTE_HOST" CODELEADER_REMOTE_HOME="$REMOTE_HOME" START_WATCHER=0 ./scripts/remote_zero_bootstrap.sh > /tmp/codeleader_bootstrap.log 2>&1; then
@@ -170,7 +170,7 @@ if ! CODELEADER_REMOTE_SSH_HOST="$REMOTE_HOST" CODELEADER_REMOTE_HOME="$REMOTE_H
 fi
 
 echo "[5/6] Ensure remote session/layout/config"
-LAYOUT_TEMPLATE="$ROOT_DIR/assets/remote/codeleader_tab1_3pane.kdl"
+LAYOUT_TEMPLATE="$ROOT_DIR/remote/codeleader_tab1_3pane.kdl"
 [[ -f "$LAYOUT_TEMPLATE" ]] || { echo "Missing $LAYOUT_TEMPLATE"; exit 1; }
 TMP_LAYOUT="$(mktemp -t codeleader-layout.XXXXXX.kdl)"
 TMP_CONFIG="$(mktemp -t codeleader-config.XXXXXX.kdl)"
@@ -284,7 +284,7 @@ printf '%s\n' "========================================"
 printf 'Mode                : %s\n' "$MODE"
 printf 'Remote Host         : %s\n' "$REMOTE_HOST"
 printf 'User Home Dir       : %s\n' "$REMOTE_HOME"
-printf 'Remote Workdir      : %s\n' "$CODEAI_DIR"
+printf 'Project Root        : %s\n' "$CODEAI_DIR"
 if [[ "$CODEAI_CMD" == *"claude"* ]]; then
   printf 'Coding AI           : Claude Code (cmd: %s)\n' "$CODEAI_CMD_RESOLVED"
 elif [[ "$CODEAI_CMD" == *"cursor"* ]]; then

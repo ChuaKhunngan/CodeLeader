@@ -104,7 +104,9 @@ ALLOW_REMOTE_BOOTSTRAP = os.environ.get("CODELEADER_ALLOW_REMOTE_BOOTSTRAP", "0"
 # Default keeps logs compact (legacy behavior).
 HUMAN_HOOK_CMD = os.environ.get("CODELEADER_HUMAN_HOOK_CMD", "").strip()
 HUMAN_HOOK_TIMEOUT_SECONDS = int(os.environ.get("CODELEADER_HUMAN_HOOK_TIMEOUT_SECONDS", "10"))
-OPENCLAW_AGENT_TIMEOUT_SECONDS = int(os.environ.get("CODELEADER_OPENCLAW_AGENT_TIMEOUT_SECONDS", "20"))
+OPENCLAW_AGENT_TIMEOUT_SECONDS = int(os.environ.get("CODELEADER_OPENCLAW_AGENT_TIMEOUT_SECONDS", "90"))
+NOTIFY_CMD = os.environ.get("CODELEADER_NOTIFY_CMD", "").strip()
+NOTIFY_TIMEOUT_SECONDS = int(os.environ.get("CODELEADER_NOTIFY_TIMEOUT_SECONDS", "15"))
 
 LOG_PROMPT_READY_HEARTBEAT = os.environ.get("CODELEADER_LOG_PROMPT_READY_HEARTBEAT", "0") in {
     "1",
@@ -422,6 +424,71 @@ def _format_hook_message(payload: dict) -> str:
     return "\n".join(lines)
 
 
+def _maybe_notify_hook_result(
+    *,
+    session: Session,
+    event_type: str,
+    proc: subprocess.CompletedProcess[str],
+) -> None:
+    if not NOTIFY_CMD:
+        append_event(
+            {
+                "type": "OPENCLAW_NOTIFY_SKIPPED",
+                "session_id": session.session_id,
+                "gateway_event_type": event_type,
+                "reason": "notify command not configured",
+            }
+        )
+        return
+
+    reply_text = (proc.stdout or "").strip()
+    if not reply_text:
+        append_event(
+            {
+                "type": "OPENCLAW_NOTIFY_SKIPPED",
+                "session_id": session.session_id,
+                "gateway_event_type": event_type,
+                "reason": "empty stdout",
+                "source_rc": proc.returncode,
+            }
+        )
+        return
+
+    try:
+        notify_proc = subprocess.run(
+            ["bash", "-lc", NOTIFY_CMD],
+            input=reply_text,
+            text=True,
+            capture_output=True,
+            timeout=NOTIFY_TIMEOUT_SECONDS,
+        )
+    except Exception as e:
+        append_event(
+            {
+                "type": "OPENCLAW_NOTIFY_RESULT",
+                "ok": False,
+                "session_id": session.session_id,
+                "gateway_event_type": event_type,
+                "notify_cmd": _truncate(NOTIFY_CMD, 240),
+                "error": str(e),
+            }
+        )
+        return
+
+    append_event(
+        {
+            "type": "OPENCLAW_NOTIFY_RESULT",
+            "ok": notify_proc.returncode == 0,
+            "session_id": session.session_id,
+            "gateway_event_type": event_type,
+            "notify_cmd": _truncate(NOTIFY_CMD, 240),
+            "rc": notify_proc.returncode,
+            "stdout": _truncate(notify_proc.stdout),
+            "stderr": _truncate(notify_proc.stderr),
+        }
+    )
+
+
 def _emit_gateway_hook(
     *,
     session: Session,
@@ -502,6 +569,7 @@ def _emit_gateway_hook(
             "stderr": _truncate(proc.stderr),
         }
     )
+    _maybe_notify_hook_result(session=session, event_type=event_type, proc=proc)
     return ok
 
 

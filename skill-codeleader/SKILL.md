@@ -43,6 +43,32 @@ Before bringing CodeLeader up, collect these values:
 
 These are the minimum required values.
 
+## Optional remote-notify at startup
+
+After collecting the remote host and repo/workdir, also decide whether this run should keep contacting the user through a fixed external channel while CodeLeader is running.
+
+Only ask this when it is actually relevant — for example when the user will be away from the screen and wants progress / hook messages to come back to Telegram or another channel.
+
+If fixed-channel push is wanted for this run:
+- construct `CODELEADER_NOTIFY_CMD` yourself
+- use an OpenClaw message/channel send command as the sender
+- make that sender read the outgoing body from **stdin**
+- inject it at startup via `CODELEADER_NOTIFY_CMD`
+- do **not** ask sentinel to understand Telegram / Discord / iMessage routing details
+- sentinel only executes the injected sender command after each CLI round-trip reply
+
+Important:
+- default is **off**
+- if the user does not explicitly want remote push, do not set `CODELEADER_NOTIFY_CMD`
+- this feature exists to avoid relying on main-session reply routing drift during CodeLeader runs
+
+Recommended collection order:
+1. remote host
+2. remote repo/workdir
+3. whether fixed-channel remote push is wanted for this run
+4. if yes, which channel/target to use
+5. then generate and inject `CODELEADER_NOTIFY_CMD`
+
 ## Bring CodeLeader up
 
 Run from the installed **CodeLeader skill bundle** directory:
@@ -51,6 +77,8 @@ Run from the installed **CodeLeader skill bundle** directory:
 export CODELEADER_REMOTE_SSH_HOST="<remote-host>"
 export CODELEADER_REMOTE_REPO_DIR="<remote-repo-dir>"
 export CODELEADER_OPENCLAW_SESSION_ID="<current-openclaw-session-id>"
+# optional, only when fixed-channel push is wanted for this run
+export CODELEADER_NOTIFY_CMD="<sender-command-reading-stdin>"
 
 ./scripts/start_codeleader_stack.sh --recreate
 ```
