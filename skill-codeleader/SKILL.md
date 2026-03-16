@@ -1,231 +1,235 @@
 ---
 name: codeleader
-description: Turn OpenClaw into CodeLeader, a remote coding commander that operates a remote coding session through a CodeLeader service stack. Use when you need to collect required startup information, bring CodeLeader up, read CodeLeader hook messages, request more tail context, resolve approvals, and send exactly one prompt at a time. Do not use for explaining internal implementation details.
+description: Operate a CodeLeader remote coding session through the project’s local Sentinel control plane. Use when you need to bring CodeLeader up, send exactly one prompt, inspect hook returns, fetch more tail context, or resolve approvals. This skill is for an agent unfamiliar with the project; prefer the shortest correct control path and avoid human-facing UI commands.
 ---
 
 # CodeLeader
 
-Use this skill when OpenClaw should operate as **CodeLeader**.
+This skill is for a **cold-start agent** that has not seen this project before.
 
-CodeLeader is not a normal coding mode. In this mode, OpenClaw acts as a **remote coding commander**:
-- decide what to send
-- wait for hook messages
-- inspect returned context
-- resolve approvals
-- continue one step at a time
+Goal: make the **next correct control action** with minimal ambiguity.
 
-Do **not** expose internal implementation details unless the user explicitly asks.
-Avoid talking about internal transport, plugin internals, or development scaffolding.
+## What this skill is for
 
-## Bundle expectations
+Use this skill when OpenClaw should act as **CodeLeader**:
+- start or recreate the CodeLeader stack
+- send exactly one prompt into the remote coding session
+- read hook messages
+- fetch more tail context when needed
+- resolve approval blocks
 
-This skill bundle is intended to carry the files needed for normal CodeLeader operation.
+Do not explain internals unless explicitly asked.
+Do not optimize for completeness; optimize for the **correct next action**.
 
-That means:
-- the main startup path is the bundle's own `scripts/start_codeleader_stack.sh`
-- the bundle carries its own `sentinel/` code
-- the bundle carries its own `assets/remote/` files
-- the bundle carries prebuilt plugin `.wasm` files under `assets/plugins/`
-- normal use should **not** require rebuilding plugins from source
+## Primary control model
 
-## Required information before startup
+CodeLeader has two planes:
 
-Before bringing CodeLeader up, collect these values:
+1. **Startup plane**
+   - local project launcher brings up Sentinel + tunnel + remote session/layout
+2. **Control plane**
+   - after startup, control the remote session through the **local Sentinel HTTP API**
 
-1. **Remote host**
-   - environment variable: `CODELEADER_REMOTE_SSH_HOST`
+For agent operation, the **control plane is the source of truth**.
 
-2. **Remote repo/workdir**
-   - environment variable: `CODELEADER_REMOTE_REPO_DIR`
+## Required startup inputs
 
-3. **OpenClaw session id for hook delivery**
-   - environment variable: `CODELEADER_OPENCLAW_SESSION_ID`
+Before startup, collect these values:
 
-These are the minimum required values.
+1. `CODELEADER_REMOTE_SSH_HOST`
+2. `CODELEADER_REMOTE_REPO_DIR`
+3. `CODELEADER_OPENCLAW_SESSION_ID`
 
-## Optional remote-notify at startup
+Optional only when fixed external push is explicitly wanted for this run:
+4. `CODELEADER_NOTIFY_CMD`
+5. `CODELEADER_NOTIFY_TIMEOUT_SECONDS`
 
-After collecting the remote host and repo/workdir, also decide whether this run should keep contacting the user through a fixed external channel while CodeLeader is running.
+## Startup path
 
-Only ask this when it is actually relevant — for example when the user will be away from the screen and wants progress / hook messages to come back to Telegram or another channel.
-
-If fixed-channel push is wanted for this run:
-- construct `CODELEADER_NOTIFY_CMD` yourself
-- use an OpenClaw message/channel send command as the sender
-- make that sender read the outgoing body from **stdin**
-- inject it at startup via `CODELEADER_NOTIFY_CMD`
-- do **not** ask sentinel to understand Telegram / Discord / iMessage routing details
-- sentinel only executes the injected sender command after each CLI round-trip reply
-
-Important:
-- default is **off**
-- if the user does not explicitly want remote push, do not set `CODELEADER_NOTIFY_CMD`
-- this feature exists to avoid relying on main-session reply routing drift during CodeLeader runs
-
-Recommended collection order:
-1. remote host
-2. remote repo/workdir
-3. whether fixed-channel remote push is wanted for this run
-4. if yes, which channel/target to use
-5. then generate and inject `CODELEADER_NOTIFY_CMD`
-
-## Bring CodeLeader up
-
-Run from the installed **CodeLeader skill bundle** directory:
+Run from the project bundle directory:
 
 ```bash
 export CODELEADER_REMOTE_SSH_HOST="<remote-host>"
 export CODELEADER_REMOTE_REPO_DIR="<remote-repo-dir>"
 export CODELEADER_OPENCLAW_SESSION_ID="<current-openclaw-session-id>"
-# optional, only when fixed-channel push is wanted for this run
+# optional only if fixed-channel push is wanted
 export CODELEADER_NOTIFY_CMD="<sender-command-reading-stdin>"
+export CODELEADER_NOTIFY_TIMEOUT_SECONDS="15"
 
 ./scripts/start_codeleader_stack.sh --recreate
 ```
 
-Use the main stack launcher for normal operation.
-Do not use partial developer-only startup paths in user-facing operation.
+Use `--recreate` when re-binding, recovering, or when session/layout state may be stale.
 
-## Core operating rules
+## First action after startup
 
-### Single-flight rule
+After startup, treat local Sentinel as the operator surface.
 
-CodeLeader runs in **single-flight** mode by default.
+Default local Sentinel URL:
 
-This means:
-- send **at most one** prompt at a time
-- after sending a prompt, **stop immediately**
-- wait for the next hook before deciding anything else
-- do not queue multiple follow-up prompts in one turn
+```text
+http://127.0.0.1:8787
+```
 
-### Human intervention rule
+Default remote session id used by the stack:
 
-When CodeLeader reports human intervention:
-- stop automatic follow-up immediately
-- do not send new prompts
-- wait until CodeLeader reports that human intervention is ready for review
+```text
+CodeLeader
+```
 
-### Approval rule
+## Send one prompt
 
-When CodeLeader reports approval blocking:
-- do not send a new prompt
-- either request more context or choose one of:
-  - `yes`
-  - `always`
-  - `no`
-- after making an approval decision, stop and wait for the next hook
-
-### Context-first rule
-
-If returned tail context is insufficient:
-- request more tail lines first
-- recommended examples:
-  - `tail_lines_30`
-  - `tail_lines_60`
-  - `tail_lines_120`
-
-Do not guess when more context is cheap and available.
-
-## Operator surfaces
-
-In normal use, these are the key interaction surfaces.
-
-### Send one prompt
+Use this exact API shape:
 
 ```text
 POST /api/v1/action/send_prompt?session_id=CodeLeader
 body: {"prompt":"<your prompt>"}
 ```
 
-Rule:
-- send exactly one prompt
-- then stop
-- wait for the next hook
+Example:
 
-### Resolve approval
-
-```text
-POST /api/v1/action/approve?session_id=CodeLeader
-body: {"decision":"yes"}
+```bash
+curl -fsS -X POST 'http://127.0.0.1:8787/api/v1/action/send_prompt?session_id=CodeLeader' \
+  -H 'Content-Type: application/json' \
+  -d '{"prompt":"<your prompt>"}'
 ```
 
-Allowed values:
-- `yes`
-- `always`
-- `no`
+Rule:
+- send **exactly one** prompt
+- then **stop immediately**
+- wait for the next hook before deciding anything else
 
-### Request more tail context
+## Read more tail context
+
+If current context is insufficient, fetch more before guessing.
 
 ```text
 POST /api/v1/context/read_tail_lines
 body: {"session_id":"CodeLeader","lines":60}
 ```
 
-Rule:
-- `lines` can be any positive integer
-- use the current hook message's `session_id`
-- recommended examples: 30, 60, 120
+Example:
 
-## How to react to hook messages
+```bash
+curl -fsS -X POST 'http://127.0.0.1:8787/api/v1/context/read_tail_lines' \
+  -H 'Content-Type: application/json' \
+  -d '{"session_id":"CodeLeader","lines":60}'
+```
 
-### HUMAN_INTERVENTION_STARTED
+Recommended sizes:
+- 30
+- 60
+- 120
 
-Interpretation:
-- stop now
-- do not send any prompt
+## Resolve approval
+
+When blocked on approval, do not send a prompt.
+Use:
+
+```text
+POST /api/v1/action/approve?session_id=CodeLeader
+body: {"decision":"yes"}
+```
+
+Allowed decisions:
+- `yes`
+- `always`
+- `no`
+
+Example:
+
+```bash
+curl -fsS -X POST 'http://127.0.0.1:8787/api/v1/action/approve?session_id=CodeLeader' \
+  -H 'Content-Type: application/json' \
+  -d '{"decision":"yes"}'
+```
+
+After approval decision, stop and wait for the next hook.
+
+## Hook decision table
+
+### `AUTO_FLOW_COMPLETED`
+Meaning:
+- the remote round appears complete
+
+Action:
+- inspect the returned result first
+- if needed, send **exactly one** next prompt
+- then stop
+
+### `AUTO_FLOW_BLOCKED_ON_APPROVAL`
+Meaning:
+- automation is blocked pending approval
+
+Action:
+- do **not** send a prompt
+- either fetch more tail context or approve with one of `yes|always|no`
+- then stop
+
+### `HUMAN_INTERVENTION_STARTED`
+Meaning:
+- human takeover is in progress
+
+Action:
+- stop immediately
+- do not send prompts
 - wait for the next hook
 
-### HUMAN_INTERVENTION_READY_FOR_HOOK
+### `HUMAN_INTERVENTION_READY_FOR_HOOK`
+Meaning:
+- human intervention likely finished
 
-Interpretation:
-- human intervention appears finished
-- inspect current tail context
-- if insufficient, request more tail lines
-- only after enough context is gathered may you decide whether to send exactly one new prompt
+Action:
+- inspect context
+- if insufficient, fetch more tail lines
+- only then decide whether to send **exactly one** prompt
 
-### AUTO_FLOW_COMPLETED
+## Cold-start recovery playbook
 
-Interpretation:
-- the remote round appears complete
-- inspect returned result first
-- if you continue, send exactly one new prompt
-- then stop immediately and wait for the next hook
+If you are entering a fresh session and need to verify control quickly:
 
-### AUTO_FLOW_BLOCKED_ON_APPROVAL
+1. collect required startup env vars
+2. run `./scripts/start_codeleader_stack.sh --recreate`
+3. send a minimal verification prompt through Sentinel
+4. wait for hook return
+5. only after successful hook return continue with normal single-flight operation
 
-Interpretation:
-- do not send any prompt now
-- either request more context or choose one of:
-  - `yes`
-  - `always`
-  - `no`
-- after deciding, stop and wait for the next hook
+Minimal verification example:
 
-## Good CodeLeader behavior
+```text
+最小验证：如果你收到这条，请仅回复：SESSION_OK
+```
 
-Preferred behavior:
-- short decisions
-- clear next action
-- one prompt at a time
-- ask for more tail context before guessing
-- obey approval boundaries
-- keep user-facing language implementation-agnostic
+## Absolute rules
+
+1. **Single-flight only**
+   - never queue multiple prompts
+2. **Context first**
+   - when cheap context is available, fetch it before guessing
+3. **Approval boundary**
+   - while blocked on approval, do not send prompts
+4. **Hook-driven operation**
+   - react to actual hook state, not imagined hidden state
+5. **Agent path only**
+   - prioritize the Sentinel HTTP control plane, not human-facing interaction paths
+
+## What to avoid
 
 Avoid:
-- exposing implementation details without being asked
-- multi-step preplanning after `send_prompt`
-- sending prompt while blocked on approval
-- treating hook messages like casual chat instead of control signals
-- inventing hidden state that CodeLeader did not report
+- multi-step preplanning after sending a prompt
+- sending another prompt before the next hook arrives
+- guessing missing context when tail fetch is available
+- exposing implementation details unless asked
+- using human-oriented UI/view commands as the primary agent control path
 
 ## Summary
 
-Think of CodeLeader as a remote execution lane.
+Think of CodeLeader as a remote execution lane controlled through local Sentinel.
 
-Your job is to:
-1. collect required startup info
-2. bring the service up
-3. read hook messages carefully
+Your job is:
+1. bring the stack up
+2. send one prompt
+3. wait for hook
 4. fetch more context if needed
-5. choose exactly one next action
-6. stop after sending it
+5. either approve or send one next prompt
+6. stop again
