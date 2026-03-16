@@ -65,11 +65,11 @@ Optional only if this run explicitly needs fixed external push:
 ## Notify template
 
 If fixed external push is required:
-- `CODELEADER_NOTIFY_CMD` receives reply text on **stdin**
-- if your sender CLI does not read message text from stdin, wrap it with `cat`
-- keep channel / target generic in the skill; do not hardcode private recipient details
+- `CODELEADER_NOTIFY_CMD` gets reply text on **stdin**
+- if your sender CLI does not read stdin natively, wrap it with `cat`
+- keep channel / target generic in the skill
 
-Generic template:
+Example:
 
 ```bash
 export CODELEADER_NOTIFY_CMD='bash -lc '\''msg="$(cat)"; openclaw message send --channel <channel> --target <target> --message "$msg"'\'''
