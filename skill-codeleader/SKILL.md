@@ -52,6 +52,18 @@ Optional only if the run explicitly needs fixed external push:
 4. `CODELEADER_NOTIFY_CMD`
 5. `CODELEADER_NOTIFY_TIMEOUT_SECONDS`
 
+Notify command rule:
+- `CODELEADER_NOTIFY_CMD` receives the reply text on **stdin**
+- if your sender CLI does not natively read message text from stdin, wrap it with `cat`
+- do not hardcode private recipient details in the skill
+- keep channel / target as placeholders in examples
+
+Generic wrapper template:
+
+```bash
+export CODELEADER_NOTIFY_CMD='bash -lc '\''msg="$(cat)"; openclaw message send --channel <channel> --target <target> --message "$msg"'\'''
+```
+
 ## Startup action
 
 Run the project startup script from the project directory:
