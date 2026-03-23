@@ -149,7 +149,7 @@ if [[ "$MODE" == "recreate" ]]; then
   ./scripts/down.sh || true
 
   echo "[2/6] Stop remote watcher"
-  CODELEADER_REMOTE_SSH_HOST="$REMOTE_HOST" CODELEADER_REMOTE_HOME="$REMOTE_HOME" ./scripts/bootstrap_remote.sh --stop || true
+  CODELEADER_REMOTE_SSH_HOST="$REMOTE_HOST" ./scripts/bootstrap_remote.sh --stop || true
 
   echo "[2.5/6] Verify local sentinel port is free after down"
   handle_local_8787_conflict_after_down || exit 1
@@ -160,7 +160,13 @@ else
 fi
 
 echo "[3/6] Start local sentinel + tunnel"
-CODELEADER_ALLOW_REMOTE_EXEC="${CODELEADER_ALLOW_REMOTE_EXEC:-1}" CODELEADER_ENABLE_TUNNEL=1 CODELEADER_LOG_PROMPT_READY_HEARTBEAT=1 CODELEADER_REMOTE_SSH_HOST="$REMOTE_HOST" ./scripts/up.sh
+NOTIFY_TIMEOUT_SECONDS_RAW="${CODELEADER_NOTIFY_TIMEOUT_SECONDS-}"
+if [[ -n "$NOTIFY_TIMEOUT_SECONDS_RAW" ]]; then
+  START_NOTIFY_TIMEOUT_SECONDS="$NOTIFY_TIMEOUT_SECONDS_RAW"
+else
+  START_NOTIFY_TIMEOUT_SECONDS="120"
+fi
+CODELEADER_ALLOW_REMOTE_EXEC="${CODELEADER_ALLOW_REMOTE_EXEC:-1}" CODELEADER_ENABLE_TUNNEL=1 CODELEADER_LOG_PROMPT_READY_HEARTBEAT=1 CODELEADER_REMOTE_SSH_HOST="$REMOTE_HOST" CODELEADER_NOTIFY_CMD="${CODELEADER_NOTIFY_CMD:-}" CODELEADER_NOTIFY_TIMEOUT_SECONDS="$START_NOTIFY_TIMEOUT_SECONDS" ./scripts/up.sh
 
 echo "[4/6] Ensure remote plugin deploy/permission (watcher disabled)"
 if ! CODELEADER_REMOTE_SSH_HOST="$REMOTE_HOST" CODELEADER_REMOTE_HOME="$REMOTE_HOME" START_WATCHER=0 ./scripts/remote_zero_bootstrap.sh > /tmp/codeleader_bootstrap.log 2>&1; then
@@ -284,7 +290,7 @@ printf '%s\n' "========================================"
 printf 'Mode                : %s\n' "$MODE"
 printf 'Remote Host         : %s\n' "$REMOTE_HOST"
 printf 'User Home Dir       : %s\n' "$REMOTE_HOME"
-printf 'Remote Workdir      : %s\n' "$CODEAI_DIR"
+printf 'Project Root        : %s\n' "$CODEAI_DIR"
 if [[ "$CODEAI_CMD" == *"claude"* ]]; then
   printf 'Coding AI           : Claude Code (cmd: %s)\n' "$CODEAI_CMD_RESOLVED"
 elif [[ "$CODEAI_CMD" == *"cursor"* ]]; then

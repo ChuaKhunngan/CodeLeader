@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Start Local codeleader-sentinel (Phase-1) in background and record PID.
-# All runtime artifacts stay inside this skill bundle.
+# All runtime artifacts stay inside this project directory.
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 RUNTIME_DIR="$ROOT_DIR/runtime"
@@ -41,8 +41,15 @@ fi
 TUNNEL_REMOTE_PORT="${CODELEADER_TUNNEL_REMOTE_PORT:-18787}"
 REMOTE_REPO_DIR="${CODELEADER_REMOTE_REPO_DIR:-}"
 REMOTE_SESSION="${CODELEADER_REMOTE_ZELLIJ_SESSION:-CodeLeader}"
+NOTIFY_CMD="${CODELEADER_NOTIFY_CMD:-}"
+NOTIFY_TIMEOUT_SECONDS_RAW="${CODELEADER_NOTIFY_TIMEOUT_SECONDS-}"
+if [[ -n "$NOTIFY_TIMEOUT_SECONDS_RAW" ]]; then
+  NOTIFY_TIMEOUT_SECONDS="$NOTIFY_TIMEOUT_SECONDS_RAW"
+else
+  NOTIFY_TIMEOUT_SECONDS="120"
+fi
 
-cd "$ROOT_DIR"  # skill bundle root
+cd "$ROOT_DIR/../.."  # workspace root (uv run expects repo context)
 
 if [[ -f "$PID_FILE" ]]; then
   old_pid="$(cat "$PID_FILE" || true)"
@@ -78,6 +85,8 @@ EOF
 nohup env \
   CODELEADER_RUN_ID="$RUN_ID" \
   CODELEADER_RUN_DIR="$RUN_DIR" \
+  CODELEADER_NOTIFY_CMD="$NOTIFY_CMD" \
+  CODELEADER_NOTIFY_TIMEOUT_SECONDS="$NOTIFY_TIMEOUT_SECONDS" \
   uv run --with fastapi --with uvicorn --with pydantic \
   "$ROOT_DIR/sentinel/app.py" \
   >"$LOG_FILE" 2>&1 &
