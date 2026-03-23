@@ -106,7 +106,8 @@ HUMAN_HOOK_CMD = os.environ.get("CODELEADER_HUMAN_HOOK_CMD", "").strip()
 HUMAN_HOOK_TIMEOUT_SECONDS = int(os.environ.get("CODELEADER_HUMAN_HOOK_TIMEOUT_SECONDS", "10"))
 OPENCLAW_AGENT_TIMEOUT_SECONDS = int(os.environ.get("CODELEADER_OPENCLAW_AGENT_TIMEOUT_SECONDS", "90"))
 NOTIFY_CMD = os.environ.get("CODELEADER_NOTIFY_CMD", "").strip()
-NOTIFY_TIMEOUT_SECONDS = int(os.environ.get("CODELEADER_NOTIFY_TIMEOUT_SECONDS", "15"))
+NOTIFY_PREFIX = os.environ.get("CODELEADER_NOTIFY_PREFIX", "[CodeLeader Notify] ")
+NOTIFY_TIMEOUT_SECONDS = int((os.environ.get("CODELEADER_NOTIFY_TIMEOUT_SECONDS") or "120").strip())
 
 LOG_PROMPT_READY_HEARTBEAT = os.environ.get("CODELEADER_LOG_PROMPT_READY_HEARTBEAT", "0") in {
     "1",
@@ -454,10 +455,12 @@ def _maybe_notify_hook_result(
         )
         return
 
+    notify_text = f"{NOTIFY_PREFIX}{reply_text}" if NOTIFY_PREFIX else reply_text
+
     try:
         notify_proc = subprocess.run(
             ["bash", "-lc", NOTIFY_CMD],
-            input=reply_text,
+            input=notify_text,
             text=True,
             capture_output=True,
             timeout=NOTIFY_TIMEOUT_SECONDS,

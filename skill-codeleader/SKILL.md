@@ -60,7 +60,7 @@ Before startup, collect:
 
 Optional only if this run explicitly needs fixed external push:
 4. `CODELEADER_NOTIFY_CMD`
-5. `CODELEADER_NOTIFY_TIMEOUT_SECONDS`
+5. `CODELEADER_NOTIFY_TIMEOUT_SECONDS` (optional override only; default behavior is fine and should not be proactively set unless this run specifically needs a different timeout)
 
 ## Notify template
 
@@ -68,6 +68,7 @@ If fixed external push is required:
 - `CODELEADER_NOTIFY_CMD` gets reply text on **stdin**
 - if your sender CLI does not read stdin natively, wrap it with `cat`
 - keep channel / target generic in the skill
+- do **not** recommend setting `CODELEADER_NOTIFY_TIMEOUT_SECONDS` by default; only set it when the run explicitly needs a non-default timeout
 
 Example:
 
